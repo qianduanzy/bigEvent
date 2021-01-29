@@ -40,7 +40,7 @@ $(function () {
             .then(res => {
                 console.log(res);
                 if (res.status !== 0) {
-                    return layyer.msg('登录失败')
+                    return layer.msg('登录失败')
                 }
                 localStorage.setItem('token', res.token)
                 layer.msg('登录成功')
