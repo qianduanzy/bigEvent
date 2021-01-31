@@ -23,6 +23,10 @@ $(function () {
                 }
                 else {
                     layer.msg('修改密码成功')
+                    // 清除 token 
+                    localStorage.removeItem('token')
+                    // 跳转登录页面
+                    window.parent.location.href = '../../../login.html'
                 }
             })
     })
