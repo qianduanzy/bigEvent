@@ -27,7 +27,6 @@ $(function () {
         console.log(imgURL);
         // 替换图片
         $image.cropper('replace', imgURL)
-
     })
     // 点击确定
     $('#save-btn').on('click', function () {

@@ -1,0 +1,12 @@
+body {
+    background-color: #f2f3f7;
+    padding: 15px;
+}
+#add-btn {
+    float: right;
+    margin-top: 6px;
+}
+.layui-form {
+    padding-top: 25px;
+    padding-right: 30px;
+}
