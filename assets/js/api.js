@@ -17,7 +17,7 @@ axios.interceptors.request.use(function (config) {
 
 // 添加响应拦截器
 axios.interceptors.response.use(function (response) {
-    console.log('接收 ajax 响应前', response);
+    // console.log('接收 ajax 响应前', response);
     const { message, status } = response.data
     // 判断身份验证是否成功
     if (message == '身份认证失败！' && status == 1) {
