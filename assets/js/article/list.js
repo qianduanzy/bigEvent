@@ -35,8 +35,16 @@ $(function () {
                 if (res.status !== 0) {
                     return layer.msg('获取失败!')
                 }
+
+                // 调用模板函数之前注册过滤器
+                template.defaults.imports.dateFormat = function (date) {
+                    return moment(date).format('YYYY/MM/DD HH:mm:ss')
+                }
+
                 // 使用模板引擎渲染页面
                 const htmlStr = template('tpl', res)
+
+
                 $('tbody').html(htmlStr)
                 // 调用分页器函数
                 renderPage(res.total)
@@ -53,8 +61,8 @@ $(function () {
             layout: ['count', 'limit', 'prev', 'page', 'next', 'skip'],
             jump: function (obj, first) {
                 //obj包含了当前分页的所有参数，比如：
-                console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-                console.log(obj.limit); //得到每页显示的条数
+                // console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                // console.log(obj.limit); //得到每页显示的条数
                 // 修改查询参数的参数
                 query.pagenum = obj.curr
                 query.pagesize = obj.limit
@@ -64,7 +72,7 @@ $(function () {
                     renderTable()
                 }
             }
-        });
+        })
     }
 
     // 表单筛选
@@ -77,6 +85,9 @@ $(function () {
         query.cate_id = cate_id
         query.state = state
         // console.log(cate_id, state);
+
+        // 优化 发送请求之前去修改页码值为第一页
+        query.pagenum = 1
 
         // 重新渲染表格
         renderTable()
@@ -93,7 +104,6 @@ $(function () {
                     }
                     layer.close(index);
                     layer.msg('删除成功')
-
                     // 填坑处理： 当前页面只有一条数据且不处在第一页的时候，点击删除之后应该手动更新上一页的数据
                     if ($('.del-btn').length == 1 && query.pagenum !== 1) {
                         // 当前页码值减一
@@ -103,5 +113,16 @@ $(function () {
                     renderTable()
                 })
         })
+    })
+
+    // 点击编辑按钮，跳转编辑页面
+    $(document).on('click', '.edit-btn', function () {
+        // 获取当前文章的 id
+        const id = $(this).data('id')
+        // 如何在两个页面之间进行数据传递：使用查询字符串
+        location.href = `./edit.html?id=${id}`
+
+        // 左侧导航条更新
+        window.parent.$('.layui-this').next().find('a').click()
     })
 })

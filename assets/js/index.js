@@ -23,14 +23,18 @@ function getUserInfo() {
         })
 }
 
-$(function () {   
+$(function () {
     const { layer } = layui
     getUserInfo()
     // 退出登录
     $('#logout').on('click', function () {
-        // 清除本地存储
-        localStorage.removeItem('token')
-        // 跳转页面
-        location.href = './login.html'
+        layer.confirm('确认退出?', { icon: 3, title: '提示' }, function (index) {
+            // 清除本地存储
+            localStorage.removeItem('token')
+            // 跳转页面
+            location.href = './login.html'
+
+            layer.close(index);
+        });
     })
 })

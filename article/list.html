@@ -72,7 +72,7 @@
         <tr>
             <td>{{$value.title}}</td>
             <td>{{$value.cate_name}}</td>
-            <td>{{$value.pub_date}}</td>
+            <td>{{$value.pub_date | dateFormat}}</td>
             <td>{{$value.state}}</td>
             <td>
                 <button data-id="{{$value.Id}}" type="button"
@@ -83,6 +83,8 @@
         </tr>
         {{/each}}
     </script>
+    <!-- 引入时间插件 -->
+    <script src="../assets/lib/moment.js"></script>
     <script src="../assets/lib/template-web.js"></script>
     <script src="../assets/lib/jquery.js"></script>
     <script src="../assets/lib/cropper/Cropper.js"></script>
